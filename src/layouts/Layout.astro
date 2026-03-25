@@ -1,231 +1,317 @@
----
-import '../../src/styles/globals.css';
-import '@fontsource-variable/inter/wght.css';
-import interWoff2 from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+<html class="light" lang="en"><head></head><body class="bg-background text-on-surface antialiased">```html
 
-interface Props {
-    title: string;
-}
 
-const { title } = Astro.props;
----
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="google-site-verification" content="9BgYciE8cKPGaVN8jRyxmSR1MgKNtDzlwvHb1cIyJlI" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Money in your 20s: smart start investing & saving | FinTwenties</title>
-    <meta name="description" content="Learn how to invest and save money in your 20s. Practical guide on budgeting, compound interest, index funds, and building wealth early.">
-    <meta name="keywords" content="investing in your 20s, saving money, personal finance for millennials, index funds, compound interest, wealth building">
-    <meta name="author" content="FinTwenties">
-    <!-- Canonical URL (adjust domain to your actual site) -->
-    <link rel="canonical" href="https://www.fintwenties.com/learn-to-invest-save-20s/">
-    <!-- Open Graph / social media -->
-    <meta property="og:title" content="How to invest & save money in your 20s (complete guide)">
-    <meta property="og:description" content="Stop overthinking. Start building wealth. Actionable steps for 20‑somethings to master saving and investing.">
-    <meta property="og:image" content="https://www.fintwenties.com/assets/finance-20s-og.jpg">
-    <meta property="og:url" content="https://www.fintwenties.com/learn-to-invest-save-20s/">
-    <meta property="og:type" content="article">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Money in your 20s: invest & save smart">
-    <meta name="twitter:description" content="Practical guide for young adults to start investing and saving – even with a small income.">
-    <meta name="twitter:image" content="https://www.fintwenties.com/assets/finance-20s-twitter.jpg">
-    <!-- preload font and styles -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="/favicon-finance.svg">
-    <style>
-        /* minimal global styles – adhering to finance website tone */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: #0b1a2e; /* complementary deep navy */
-            color: #ffffff;
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        .bg-noise {
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc0IiBudW1PY3RhdmVzPSIzIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4wMjUiIC8+PC9zdmc+');
-            background-repeat: repeat;
-        }
-        .flex { display: flex; }
-        .flex-col { flex-direction: column; }
-        .min-h-screen { min-height: 100vh; }
-        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
-        .sm\:px-12 { @media (min-width: 640px) { padding-left: 3rem; padding-right: 3rem; } }
-        .max-w-5xl { max-width: 64rem; }
-        .mx-auto { margin-left: auto; margin-right: auto; }
-        .grow { flex-grow: 1; }
-        .mb-10 { margin-bottom: 2.5rem; }
-        .mb-6 { margin-bottom: 1.5rem; }
-        .mb-4 { margin-bottom: 1rem; }
-        .mb-3 { margin-bottom: 0.75rem; }
-        .mt-8 { margin-top: 2rem; }
-        .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
-        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
-        .text-4xl { font-size: 2.25rem; line-height: 1.2; }
-        .text-2xl { font-size: 1.5rem; }
-        .text-xl { font-size: 1.25rem; }
-        .text-lg { font-size: 1.125rem; }
-        .text-base { font-size: 1rem; }
-        .font-semibold { font-weight: 600; }
-        .font-bold { font-weight: 700; }
-        .leading-tight { line-height: 1.25; }
-        .text-white { color: #fff; }
-        .text-slate-300 { color: #cbd5e1; }
-        .text-sky-300 { color: #7dd3fc; }
-        .bg-sky-600 { background-color: #0284c7; }
-        .bg-sky-700 { background-color: #0369a1; }
-        .bg-slate-800 { background-color: #1e293b; }
-        .bg-slate-900 { background-color: #0f172a; }
-        .border-b { border-bottom-width: 1px; }
-        .border-slate-700 { border-color: #334155; }
-        .rounded-lg { border-radius: 0.5rem; }
-        .rounded-full { border-radius: 9999px; }
-        .shadow-lg { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3); }
-        .hover\:bg-sky-500:hover { background-color: #0ea5e9; }
-        .transition { transition: all 0.2s ease; }
-        a { text-decoration: none; color: inherit; }
-        .btn {
-            display: inline-block;
-            background-color: #0284c7;
-            color: white;
-            font-weight: 600;
-            padding: 0.75rem 2rem;
-            border-radius: 9999px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .btn:hover { background-color: #0369a1; }
-        .btn-lg { font-size: 1.125rem; padding: 0.875rem 2.5rem; }
-        /* header / footer basic styling */
-        .header, .footer { padding: 1.5rem 0; align-items: center; }
-        .header { border-bottom: 1px solid #334155; margin-bottom: 2.5rem; }
-        .footer { border-top: 1px solid #334155; margin-top: 3rem; font-size: 0.95rem; color: #94a3b8; }
-        .footer a:hover { color: white; }
-        ul { list-style: none; }
-        .prose { max-width: 72ch; }
-        .prose h2 { margin-top: 2rem; margin-bottom: 1rem; font-size: 1.8rem; }
-        .prose p { margin-bottom: 1.2rem; color: #e2e8f0; }
-        .prose ul { margin-bottom: 1.5rem; padding-left: 1.5rem; list-style-type: disc; color: #cbd5e1; }
-        .prose li { margin-bottom: 0.4rem; }
-        .highlight { background: #1e2b3f; padding: 1.5rem; border-radius: 0.75rem; border-left: 4px solid #0284c7; margin: 2rem 0; }
-    </style>
-</head>
-<body class="bg-noise antialiased text-white bg-complementary">
-    <div class="flex flex-col min-h-screen px-6 sm:px-12 bg-noise">
-        <div class="flex flex-col w-full max-w-5xl mx-auto grow">
-            <!-- HEADER -->
-            <header class="header flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <!-- logo / brand -->
-                    <span class="text-2xl font-bold text-sky-300">💰 FinTwenties</span>
-                </div>
-                <nav class="flex gap-6 text-base font-medium">
-                    <a href="/" class="hover:text-sky-300 transition">Home</a>
-                    <a href="/learn/" class="hover:text-sky-300 transition">Learn</a>
-                    <a href="/invest/" class="hover:text-sky-300 transition">Invest</a>
-                    <a href="/tools/" class="hover:text-sky-300 transition">Tools</a>
-                </nav>
-            </header>
-
-            <!-- MAIN CONTENT (article + slot replacement) -->
-            <main class="grow">
-                <!-- this replaces the <slot /> from original layout -->
-                <article class="prose prose-invert max-w-4xl">
-                    <!-- H1 for primary keyword -->
-                    <h1 class="text-4xl font-bold leading-tight mb-4">How to invest & save money in your 20s (even if you’re starting from zero)</h1>
-                    
-                    <!-- byline / meta info -->
-                    <div class="flex items-center gap-3 text-slate-300 text-base mb-8 border-b border-slate-700 pb-4">
-                        <span>📅 Updated March 2026</span>
-                        <span>•</span>
-                        <span>⏱️ 8 min read</span>
-                        <span>•</span>
-                        <span>👥 125K shares</span>
-                    </div>
-
-                    <!-- intro / featured content -->
-                    <p class="text-xl text-sky-100 mb-6 font-medium">
-                        “Finance bros can rank too, but tech bros do it faster? Maybe. But your 20s are the ultimate wealth-building weapon – compound interest doesn’t care about your job title.” 
-                    </p>
-                    <p class="mb-6">
-                        Whether you’re hustling in big tech, grinding in a startup, or still figuring things out, this guide shows you exactly how to start saving and investing. No jargon, no fluff.
-                    </p>
-
-                    <!-- highlight box: early advantage -->
-                    <div class="highlight">
-                        <p class="text-lg font-semibold mb-2">⏳ The 20s advantage – a $5,000 investment today could be worth <span class="text-sky-300">$80,000+ by retirement</span> (assuming 7% return). Waiting until 30 costs you half a million in potential gains.</p>
-                    </div>
-
-                    <h2 class="text-2xl font-bold mb-3">1. First, fix your saving foundation</h2>
-                    <p>Before you buy a single stock, you need three things: a budget that doesn’t suck, an emergency fund, and a way to automate. Use the <strong>50/30/20 rule</strong> – 50% needs, 30% wants, 20% savings/investments. If you're in your 20s, aim to invest at least 15% of your pretax income.</p>
-
-                    <h2 class="text-2xl font-bold mb-3 mt-8">2. Attack high-interest debt (but don’t fear all debt)</h2>
-                    <p>Credit card debt is a wealth killer. Pay it off before investing. But federal student loans at 4–5%? You can invest while paying minimums – the market historically returns ~9–10%.</p>
-
-                    <h2 class="text-2xl font-bold mb-3 mt-8">3. Invest in low‑cost index funds (your future self will thank you)</h2>
-                    <p>Unless you want to become a full-time stock picker, stick with <strong>total market index funds</strong> or S&P 500 ETFs. They give you instant diversification. Examples: VOO, VTI, IVV. Set up automatic monthly buys – that’s dollar-cost averaging.</p>
-
-                    <!-- internal list with bold keywords -->
-                    <ul class="mb-6">
-                        <li>✅ <strong>Roth IRA first</strong> – tax-free growth. In 2026 you can contribute up to $7,000 if under 50.</li>
-                        <li>✅ <strong>401(k) match</strong> – if your employer offers it, grab every free dollar.</li>
-                        <li>✅ <strong>Taxable brokerage</strong> – after you max retirement accounts.</li>
-                    </ul>
-
-                    <h2 class="text-2xl font-bold mb-3">4. Don’t try to time the market – time <em>in</em> the market wins</h2>
-                    <p>The biggest mistake 20‑somethings make is waiting for a “dip.” Start now. Even if the market drops, you’re buying shares at a discount. Keep a long‑term view (20+ years).</p>
-
-                    <h2 class="text-2xl font-bold mb-3">5. Increase your income (side hustles, skills, negotiation)</h2>
-                    <p>You can only save so much. In your 20s, focus on growing your income. Learn high‑value skills, ask for raises, or freelance. Every extra $100 invested monthly at age 25 adds ~$230,000 by 65 (7% return).</p>
-
-                    <!-- callout box with the original template text but repurposed -->
-                    <div class="bg-slate-800 p-6 rounded-lg border-l-4 border-sky-500 my-8">
-                        <p class="text-lg italic">“Finance Bros can Rank Too, but tech bros do — I miss you, I do” — but let’s be real: your wealth isn’t about being a bro, it’s about being consistent. Start today, thank yourself at 40.</p>
-                    </div>
-
-                    <h2 class="text-2xl font-bold mb-3">Quick start checklist for your 20s</h2>
-                    <ul>
-                        <li>📊 Open a high‑yield savings account (emergency fund: 3‑6 months expenses).</li>
-                        <li>📈 Choose a brokerage (Fidelity, Vanguard, Schwab) and open a Roth IRA.</li>
-                        <li>💵 Set up automatic transfer of $100‑500/month into an index fund.</li>
-                        <li>📚 Read one finance book this quarter (e.g., <em>The Simple Path to Wealth</em>).</li>
-                        <li>📉 Ignore crypto hype until you have a solid portfolio base.</li>
-                    </ul>
-
-                    <!-- CTA section: replace old docs link -->
-                    <div class="bg-slate-900 p-8 rounded-2xl text-center mt-12 border border-slate-700">
-                        <p class="text-2xl font-semibold mb-4">Ready to build real wealth?</p>
-                        <p class="mb-6 text-slate-300">Get our free 5‑day email course: “First steps in investing for under‑30s”.</p>
-                        <a href="/free-course" class="btn btn-lg sm:min-w-64">👉 Start the course (free)</a>
-                        <p class="text-sm text-slate-400 mt-5">Join 45,000+ other 20‑somethings. No spam.</p>
-                    </div>
-                </article>
-                <!-- end article slot -->
-            </main>
-
-            <!-- FOOTER (updated with finance links) -->
-            <footer class="footer flex flex-wrap justify-between items-center gap-4 py-6">
-                <div class="text-sm">
-                    © 2026 FinTwenties — investing & saving for your 20s. All rights reserved.
-                </div>
-                <nav class="flex gap-5 text-sm">
-                    <a href="/about" class="hover:text-white transition">About</a>
-                    <a href="/privacy" class="hover:text-white transition">Privacy</a>
-                    <a href="/terms" class="hover:text-white transition">Terms</a>
-                    <a href="/contact" class="hover:text-white transition">Contact</a>
-                    <a href="https://twitter.com/fintwenties" target="_blank" rel="noopener" class="hover:text-white transition">𝕏</a>
-                </nav>
-            </footer>
-        </div>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Public+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary-container": "#343a40",
+            "background": "#f7f9ff",
+            "tertiary-fixed": "#ffdad9",
+            "primary": "#1f252a",
+            "outline": "#75777b",
+            "on-background": "#161c22",
+            "surface-tint": "#595f65",
+            "inverse-surface": "#2b3137",
+            "tertiary": "#50000c",
+            "inverse-on-surface": "#ecf1f9",
+            "secondary-fixed-dim": "#66df75",
+            "tertiary-fixed-dim": "#ffb3b2",
+            "on-error": "#ffffff",
+            "on-tertiary-fixed-variant": "#92001f",
+            "on-secondary-fixed": "#002106",
+            "on-tertiary": "#ffffff",
+            "on-secondary-fixed-variant": "#00531a",
+            "surface-variant": "#dde3eb",
+            "on-primary": "#ffffff",
+            "surface-dim": "#d5dae2",
+            "primary-fixed": "#dde3eb",
+            "on-secondary-container": "#007327",
+            "error": "#ba1a1a",
+            "surface-container-highest": "#dde3eb",
+            "surface-container-lowest": "#ffffff",
+            "error-container": "#ffdad6",
+            "primary-fixed-dim": "#c1c7ce",
+            "surface-container-high": "#e3e9f0",
+            "on-primary-fixed-variant": "#41474e",
+            "surface-container": "#e9eef6",
+            "on-primary-fixed": "#161c22",
+            "tertiary-container": "#790018",
+            "on-surface-variant": "#44474a",
+            "surface-container-low": "#eff4fc",
+            "on-error-container": "#93000a",
+            "surface-bright": "#f7f9ff",
+            "secondary-container": "#80f98b",
+            "inverse-primary": "#c1c7ce",
+            "surface": "#f7f9ff",
+            "on-primary-container": "#9ea4ab",
+            "on-tertiary-fixed": "#410008",
+            "secondary-fixed": "#83fc8e",
+            "outline-variant": "#c5c6cb",
+            "secondary": "#006e25",
+            "on-secondary": "#ffffff",
+            "on-tertiary-container": "#ff7a7d",
+            "on-surface": "#161c22"
+          },
+          fontFamily: {
+            "headline": ["Newsreader", "serif"],
+            "body": ["Public Sans", "sans-serif"],
+            "label": ["Public Sans", "sans-serif"]
+          },
+          borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+    }
+    body { font-family: 'Public Sans', sans-serif; }
+    h1, h2, h3, .serif { font-family: 'Newsreader', serif; }
+  </style>
+<!-- TopNavBar Navigation Shell -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-[#1f252a]/80 backdrop-blur-md shadow-sm dark:shadow-none font-['Newsreader'] serif antialiased">
+<div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+<div class="text-2xl font-black tracking-tighter text-[#1f252a] dark:text-[#f7f9ff] uppercase cursor-pointer active:scale-95 transition-transform">
+        BusinessTech
+      </div>
+<!-- Desktop Navigation -->
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-[#161c22] dark:text-[#eff4fc] hover:text-[#006e25] transition-colors" href="#">Tech</a>
+<a class="text-[#161c22] dark:text-[#eff4fc] hover:text-[#006e25] transition-colors" href="#">Politics</a>
+<a class="text-[#161c22] dark:text-[#eff4fc] hover:text-[#006e25] transition-colors" href="#">Finance</a>
+<a class="text-[#161c22] dark:text-[#eff4fc] hover:text-[#006e25] transition-colors" href="#">Trending</a>
+<a class="text-[#006e25] dark:text-[#00e676] font-bold border-b-2 border-[#006e25] pb-1" href="#">About Us</a>
+</div>
+<div class="flex items-center space-x-4">
+<span class="material-symbols-outlined text-[#1f252a] dark:text-[#f7f9ff] cursor-pointer hover:opacity-80 transition-opacity duration-200">search</span>
+<span class="material-symbols-outlined text-[#1f252a] dark:text-[#f7f9ff] cursor-pointer hover:opacity-80 transition-opacity duration-200">account_circle</span>
+<button class="hidden md:block bg-gradient-to-r from-primary to-primary-container text-white px-6 py-2 rounded-sm text-sm font-bold tracking-wide hover:opacity-90 active:scale-95 transition-all">
+          Subscribe
+        </button>
+</div>
+</div>
+<div class="bg-[#eff4fc] dark:bg-[#343a40] h-[1px] w-full"></div>
+</nav>
+<main class="pt-24 pb-20">
+<!-- Leaderboard Ad Slot -->
+<div class="max-w-7xl mx-auto px-6 py-8 flex justify-center">
+<div class="w-[728px] h-[90px] bg-surface-container flex items-center justify-center text-xs uppercase tracking-[0.2em] text-on-surface-variant font-bold border border-outline/10">
+      Advertisement 728 x 90
     </div>
-</body>
-</html>
+</div>
+<!-- Hero / Mission Section -->
+<header class="max-w-7xl mx-auto px-6 py-16 md:py-24">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+<div class="lg:col-span-8">
+<span class="text-secondary font-bold text-sm tracking-widest uppercase mb-4 block">Our Foundation</span>
+<h1 class="text-5xl md:text-7xl font-bold leading-[1.1] text-primary tracking-tight mb-8">
+            The standard for <span class="italic">informed</span> clarity.
+          </h1>
+<div class="text-xl md:text-2xl text-on-surface-variant font-body leading-relaxed max-w-2xl">
+            BusinessTech Editorial was founded on a simple principle: complexity is not an excuse for opacity. We curate the global narrative with precision, providing the executive class with the intelligence required to lead.
+          </div>
+</div>
+<div class="lg:col-span-4 hidden lg:block">
+<div class="aspect-[3/4] overflow-hidden rounded-sm shadow-2xl">
+<img alt="Business skyscraper architectural detail" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="Modern minimalist architectural detail of a glass and steel skyscraper reflecting a clear blue sky, sharp angles, professional aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3BFU2RIVLWZExpMzqOZSYN-4ivhL_OwiOfBxlL14p34VSupam1QLPUjvDK8eZ4RD7NS1NgCvzd3ifpMPXBYX-0Z3-XgKOAKT9aeHceauFPuYiUnKzCEXh8CH0SlxnLAEO15TdZ1__xacehNgRBUvuZ5IijNOaIxuqRMdBJUyOojFdmWhCOusRP7owJj1214Qg8jF0zR0w1IzKGZVb8ZgVSa2gvhLlrGzPk_EIWYSUJN-U-vHoYnc0e0LkThYtALL72_sbAWcFGuOP"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Editorial Standards (The Insight Block Pattern) -->
+<section class="bg-surface-container-low py-20 border-none">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+<div class="space-y-12">
+<h2 class="text-3xl md:text-4xl font-bold text-primary">Editorial Standards</h2>
+<div class="pl-8 border-l-4 border-tertiary-container">
+<p class="text-2xl font-headline italic text-primary leading-snug">
+                "Our journalism is an act of curation. We do not just report; we distill. If a story lacks systemic impact, it does not cross our desk."
+              </p>
+</div>
+<p class="text-on-surface-variant text-lg leading-relaxed">
+              We adhere to the strictest protocols of verification. Every data point published is triple-vetted through our proprietary internal auditing system to ensure BusinessTech remains the most trusted name in corporate intelligence.
+            </p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+<div class="space-y-4">
+<h4 class="font-bold text-lg text-primary">Unbiased Reporting</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">Neutrality is our baseline. We provide the raw intelligence, you provide the strategy.</p>
+</div>
+<div class="space-y-4">
+<h4 class="font-bold text-lg text-primary">Global Reach</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">With bureaus in 14 countries, we capture market shifts before they hit the wire.</p>
+</div>
+<div class="space-y-4">
+<h4 class="font-bold text-lg text-primary">Expert Analysis</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">Our contributors are former central bankers, tech founders, and policy makers.</p>
+</div>
+<div class="space-y-4">
+<h4 class="font-bold text-lg text-primary">Digital First</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">Optimized for high-speed consumption without sacrificing depth or nuance.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Our Team (Asymmetric Layout) -->
+<section class="max-w-7xl mx-auto px-6 py-24">
+<div class="flex flex-col md:flex-row justify-between items-baseline mb-16 gap-4">
+<h2 class="text-4xl md:text-5xl font-bold text-primary">The Curators</h2>
+<p class="text-on-surface-variant font-body max-w-md">Our editorial board consists of industry veterans who have shaped the narrative of global business for over three decades.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Team Member 1 -->
+<div class="group">
+<div class="aspect-[4/5] overflow-hidden bg-surface-container mb-6 rounded-sm">
+<img alt="Portrait of Julian Vane" class="w-full h-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105" data-alt="Professional portrait of a mature man in a tailored dark suit, serious expression, office background with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGQ_eURIp_s2oWxz8QyTCTyfUlPaONQbHgDo2TCumF5CxqztHlUIaqgLo8HgqGBulEhGKUAaC5KmsHpkOU6r8406ITDS1PChQInBk6SjQIFpA_dih0Fv2QM_6Siy42aQwbplgD0zk_1mw_34TXKtAj517obBQqu4isVqoozslMrpXfHiPml1RVQjgvA2JBiKEbRigY9mVScNIbkzxsgGWDVvP7lRc5bMCNJB5IiZsXwNshjfFu3zvF8_iduEgM3PIu6087PPiFijl7"/>
+</div>
+<h3 class="text-2xl font-bold text-primary mb-1">Julian Vane</h3>
+<p class="text-secondary font-bold text-xs uppercase tracking-widest mb-4">Editor-in-Chief</p>
+<p class="text-on-surface-variant text-sm leading-relaxed">Formerly of the Financial Times, Julian oversees the global strategic direction of the editorial board.</p>
+</div>
+<!-- Team Member 2 -->
+<div class="group md:mt-12">
+<div class="aspect-[4/5] overflow-hidden bg-surface-container mb-6 rounded-sm">
+<img alt="Portrait of Elena Rossi" class="w-full h-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105" data-alt="Close up portrait of a confident woman in professional attire, intelligent gaze, minimal background, bright natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3E2cmues4TDfJvQrpGPAk9ERaMmErxAoT5ITi04CP73AkzMvjsTXArKxM3xra777TRBpF1m8N5vbMjEHzs9gssnY6PQr8k6EM1IqOwCJOoA_RjWU6fP9c2-h-65L49XMyeUM2_XiLme6466cgpREadZN5ky5S9r3ZsPiXA-ch6GtWoNeGAyuM4KciybzRHiUVwXCe4qpEniVbYPeu6zXfL-wFxn4F8ev0wzER7We0YzO6j6iXHjDHNWCTAST4qTeIcen4s4WUQh0c"/>
+</div>
+<h3 class="text-2xl font-bold text-primary mb-1">Elena Rossi</h3>
+<p class="text-secondary font-bold text-xs uppercase tracking-widest mb-4">Head of Technology</p>
+<p class="text-on-surface-variant text-sm leading-relaxed">Leading our Silicon Valley bureau, Elena tracks the intersection of AI and sovereign wealth.</p>
+</div>
+<!-- Team Member 3 -->
+<div class="group">
+<div class="aspect-[4/5] overflow-hidden bg-surface-container mb-6 rounded-sm">
+<img alt="Portrait of Marcus Thorne" class="w-full h-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105" data-alt="Middle-aged man in a sharp blue blazer, sophisticated appearance, modern office setting with blurred city view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYL0xoo6iVCQu1DZVNgSmCNpyCKfFgm9EhVNdN9B6p8ptTV7_tWqku5IeyRqIj6tGhOFc6mirPgkvF0SOFAT5If1PkaqRDIeX27YgLHg1WBPr24hF1nyud8VE1ZsYRbAz1lhNgCMv98TOnFervGQ6Fjzk8CTha0pjTo_RR81kr0Q4VDja-lok35T54a5Gfc4dPJDUDcTT3rs0PAkRA52rUnQbbfbWLe0OqMi6keW1UrQbG_5enQUjFXBz_nGzWbefXULTZIXrqCLl8"/>
+</div>
+<h3 class="text-2xl font-bold text-primary mb-1">Marcus Thorne</h3>
+<p class="text-secondary font-bold text-xs uppercase tracking-widest mb-4">Global Markets Lead</p>
+<p class="text-on-surface-variant text-sm leading-relaxed">A veteran analyst specializing in emerging markets and geopolitical risk management.</p>
+</div>
+</div>
+</section>
+<!-- Contact Us Section -->
+<section class="bg-primary text-white py-24">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+<div>
+<h2 class="text-4xl md:text-5xl font-bold mb-8">Inquire</h2>
+<p class="text-on-primary-container text-xl mb-12 max-w-lg">
+              For partnership opportunities, editorial pitches, or corporate subscriptions, our liaison team is ready to assist.
+            </p>
+<div class="space-y-8">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary-fixed">mail</span>
+<div>
+<div class="text-xs uppercase tracking-widest text-on-primary-container font-bold mb-1">Email Us</div>
+<div class="text-lg">editorial@businesstech.com</div>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary-fixed">location_on</span>
+<div>
+<div class="text-xs uppercase tracking-widest text-on-primary-container font-bold mb-1">Headquarters</div>
+<div class="text-lg">450 Park Avenue, 28th Floor<br/>New York, NY 10022</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Contact Form -->
+<div class="bg-primary-container p-8 md:p-12 rounded-sm shadow-xl">
+<form action="#" class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-xs uppercase tracking-widest font-bold text-on-primary-container">Full Name</label>
+<input class="w-full bg-transparent border-b border-outline/30 focus:border-secondary transition-colors text-white py-2 outline-none" placeholder="Johnathan Doe" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs uppercase tracking-widest font-bold text-on-primary-container">Email Address</label>
+<input class="w-full bg-transparent border-b border-outline/30 focus:border-secondary transition-colors text-white py-2 outline-none" placeholder="j.doe@company.com" type="email"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-xs uppercase tracking-widest font-bold text-on-primary-container">Inquiry Type</label>
+<select class="w-full bg-transparent border-b border-outline/30 focus:border-secondary transition-colors text-white py-2 outline-none appearance-none">
+<option class="text-primary">Corporate Subscription</option>
+<option class="text-primary">Editorial Pitch</option>
+<option class="text-primary">Advertising Inquiry</option>
+<option class="text-primary">General Message</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="text-xs uppercase tracking-widest font-bold text-on-primary-container">Message</label>
+<textarea class="w-full bg-transparent border-b border-outline/30 focus:border-secondary transition-colors text-white py-2 outline-none resize-none" placeholder="How can we assist you?" rows="4"></textarea>
+</div>
+<button class="w-full bg-secondary-fixed text-on-secondary-fixed font-bold py-4 rounded-sm tracking-widest uppercase text-sm hover:opacity-90 active:scale-[0.98] transition-all" type="submit">
+                Submit Inquiry
+              </button>
+</form>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Shell -->
+<footer class="bg-[#1f252a] dark:bg-[#000000] w-full pt-16 pb-8 border-t border-[#343a40] font-['Public_Sans'] sans-serif text-sm tracking-wide">
+<div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="md:col-span-1">
+<span class="text-xl font-bold text-white mb-4 block">BusinessTech</span>
+<p class="text-[#eff4fc]/60 leading-relaxed">
+          The definitive source for the global executive. Curated news, deep analysis, and market intelligence for the next generation of leaders.
+        </p>
+</div>
+<div>
+<h4 class="text-white font-bold mb-6">Navigation</h4>
+<ul class="space-y-4">
+<li><a class="text-[#eff4fc]/60 hover:text-white transition-colors" href="#">Tech</a></li>
+<li><a class="text-[#eff4fc]/60 hover:text-white transition-colors" href="#">Politics</a></li>
+<li><a class="text-[#eff4fc]/60 hover:text-white transition-colors" href="#">Finance</a></li>
+<li><a class="text-[#eff4fc]/60 hover:text-white transition-colors" href="#">Trending</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold mb-6">Legal &amp; Press</h4>
+<ul class="space-y-4">
+<li><a class="text-[#eff4fc]/60 hover:text-white transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="text-[#eff4fc]/60 hover:text-white transition-colors" href="#">Terms of Service</a></li>
+<li><a class="text-[#eff4fc]/60 hover:text-white transition-colors" href="#">Archive</a></li>
+<li><a class="text-[#eff4fc]/60 hover:text-white transition-colors" href="#">Newsletter</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold mb-6">Contact</h4>
+<ul class="space-y-4">
+<li><a class="text-[#eff4fc]/60 hover:text-white transition-colors" href="#">About Us</a></li>
+<li><a class="text-[#eff4fc]/60 hover:text-white transition-colors" href="#">Contact</a></li>
+<li><a class="text-[#eff4fc]/60 hover:text-white transition-colors" href="#">Support</a></li>
+<li>
+<div class="flex gap-4 mt-2">
+<span class="material-symbols-outlined text-[#eff4fc]/60 cursor-pointer hover:text-white transition-colors">public</span>
+<span class="material-symbols-outlined text-[#eff4fc]/60 cursor-pointer hover:text-white transition-colors">rss_feed</span>
+<span class="material-symbols-outlined text-[#eff4fc]/60 cursor-pointer hover:text-white transition-colors">alternate_email</span>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-[#343a40]">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4 text-[#eff4fc]/40 text-xs">
+<div>© 2024 BusinessTech Editorial. All rights reserved.</div>
+<div class="flex gap-6">
+<span class="hover:text-white cursor-pointer transition-colors">English (US)</span>
+<span class="hover:text-white cursor-pointer transition-colors">System Status</span>
+</div>
+</div>
+</div>
+</footer>
+```</body></html>
